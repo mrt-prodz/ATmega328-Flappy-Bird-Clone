@@ -7,6 +7,8 @@ Developed and tested with an Arduino UNO and a Sainsmart 1.8" TFT screen.
 
 More info about this project: [mrt-prodz.com](http://www.mrt-prodz.com/blog/view/2015/03/flappy-bird-clone-on-the-atmega328-arduino-uno)
 
+Youtube video:
+
 [![Video Preview](http://img.youtube.com/vi/UTXFvdvifwU/0.jpg)](http://www.youtu.be/UTXFvdvifwU)
 
 ##Features:
