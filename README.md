@@ -13,7 +13,7 @@ Developed and tested with an Arduino UNO and a Sainsmart 1.8" TFT screen.
 This is a project for the ATmega328 and ST7735, source will certainly needs some twraking to run on other components.
 
 ##Screenshot:
-![In-Game](https://raw.githubusercontent.com/mrt-prodz/ATmega328-Flappy-Bird-Clone/master/screenshot1.png)
+![In-Game](https://raw.githubusercontent.com/mrt-prodz/ATmega328-Flappy-Bird-Clone/master/screenshot1.jpg)
 
 ##References:
 [Wiring the Sainsmart screen to the Arduino UNO](http://www.tweaking4all.com/hardware/arduino/sainsmart-arduino-color-display)
