@@ -5,6 +5,10 @@
 This is a Flappy Bird clone made for the ATmega328 and a Sainsmart 1.8" TFT screen (ST7735). 
 Developed and tested with an Arduino UNO and a Sainsmart 1.8" TFT screen.
 
+More info about this project: [mrt-prodz.com](http://www.mrt-prodz.com/blog/view/2015/03/flappy-bird-clone-on-the-atmega328-arduino-uno)
+
+[![Video Preview](http://img.youtube.com/vi/UTXFvdvifwU/0.jpg)](http://www.youtu.be/UTXFvdvifwU)
+
 ##Features:
 * Simple gameplay similar with Flappy Bird
 * Usage of a small sprite to represent the bird
@@ -14,6 +18,8 @@ This is a project for the ATmega328 and ST7735, source will certainly needs some
 
 ##Screenshot:
 ![In-Game](https://raw.githubusercontent.com/mrt-prodz/ATmega328-Flappy-Bird-Clone/master/screenshot.jpg)
+
+![Sketch](https://raw.githubusercontent.com/mrt-prodz/ATmega328-Flappy-Bird-Clone/master/sketch.jpg)
 
 ##References:
 [Wiring the Sainsmart screen to the Arduino UNO](http://www.tweaking4all.com/hardware/arduino/sainsmart-arduino-color-display)
