@@ -9,7 +9,7 @@ More info about this project: [mrt-prodz.com](http://www.mrt-prodz.com/blog/view
 
 Youtube video:
 
-[![Video Preview](http://img.youtube.com/vi/UTXFvdvifwU/0.jpg)](http://www.youtu.be/UTXFvdvifwU)
+[![Video Preview](http://img.youtube.com/vi/UTXFvdvifwU/0.jpg)](https://www.youtube.com/watch?v=UTXFvdvifwU)
 
 ##Features:
 * Simple gameplay similar with Flappy Bird
