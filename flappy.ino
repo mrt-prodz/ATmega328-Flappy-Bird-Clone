@@ -123,6 +123,13 @@ const unsigned int GRASSCOL  = TFT.Color565(141,225,87);
 const unsigned int GRASSCOL2 = TFT.Color565(156,239,88);
 
 // ---------------
+// draw pixel
+// ---------------
+// faster drawPixel method by inlining calls and using setAddrWindow and pushColor
+// using macro to force inlining
+#define drawPixel(a, b, c) TFT.setAddrWindow(a, b, a+1, b+1); TFT.pushColor(c)
+
+// ---------------
 // initial setup
 // ---------------
 void setup() {
@@ -370,14 +377,3 @@ void game_over() {
     if ( !(PIND & (1<<PD2)) ) break;
   }
 }
-
-// ---------------
-// draw pixel
-// ---------------
-// faster drawPixel method by inlining calls and using setAddrWindow and pushColor
-// we just use this during the erasing and drawing of the bird sprite
-inline void drawPixel(unsigned char x, unsigned char y, unsigned int color) {
-  TFT.setAddrWindow(x, y, x+1, y+1);
-  TFT.pushColor(color);
-}
-
