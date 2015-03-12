@@ -33,101 +33,93 @@
 
 // initialize Sainsmart 1.8" TFT screen
 // (connect pins accordingly or change these values)
-#define TFT_DC        9 // Sainsmart RS/DC
-#define TFT_RST       8 // Sainsmart RES
-#define TFT_CS       10 // Sainsmart CS
-// global tft var for our screen
+#define TFT_DC            9     // Sainsmart RS/DC
+#define TFT_RST           8     // Sainsmart RES
+#define TFT_CS           10     // Sainsmart CS
+// initialize screen with pins
 static Adafruit_ST7735 TFT = Adafruit_ST7735(TFT_CS,  TFT_DC, TFT_RST);
 // instead of using TFT.width() and TFT.height() set constant values
 // (we can change the size of the game easily that way)
-// screen constant
-#define TFTW     128
-#define TFTH     160
-// instead of calculating half of the screen size set constant values
-#define TFTW2     64
-#define TFTH2     80
+#define TFTW            128     // screen width
+#define TFTH            160     // screen height
+#define TFTW2            64     // half screen width
+#define TFTH2            80     // half screen height
+// game constant
+#define SPEED             1
+#define GRAVITY         9.8
+#define JUMP_FORCE     2.15
+#define SKIP_TICKS     20.0     // 1000 / 50fps
+#define MAX_FRAMESKIP     5
+// bird size
+#define BIRDW             8     // bird width
+#define BIRDH             8     // bird height
+#define BIRDW2            4     // half width
+#define BIRDH2            4     // half height
+// pipe size
+#define PIPEW            12     // pipe width
+#define GAPHEIGHT        36     // pipe gap height
+// floor size
+#define FLOORH           20     // floor height (from bottom of the screen)
+// grass size
+#define GRASSH            4     // grass height (inside floor, starts at floor y)
 
-// gravity
-#define SPEED      1
-// gravity
-#define GRAVITY    9.8
-// jump force
-#define JUMP_FORCE 2.15
-
-// game loop constant
-#define SKIP_TICKS     20.0 // 1000 / 50fps
-#define MAX_FRAMESKIP  5
-
-// score
-static short score;
-
-// background color
+// background
 const unsigned int BCKGRDCOL = TFT.Color565(138,235,244);
-
-// bird constant
-#define BIRDW      8
-#define BIRDH      8
-// instead of calculating half of the bird size set a constant for it
-#define BIRDW2     4
-#define BIRDH2     4
-// bird color
+// bird
 const unsigned int BIRDCOL = TFT.Color565(255,254,174);
-// bird sprite colors (Cx name for values to keep the array readable)
-#define C0  BCKGRDCOL
-#define C1  TFT.Color565(195,165,75)
-#define C2  BIRDCOL
-#define C3  ST7735_WHITE
-#define C4  ST7735_RED
-#define C5  TFT.Color565(251,216,114)
+// pipe
+const unsigned int PIPECOL  = TFT.Color565(99,255,78);
+// pipe highlight
+const unsigned int PIPEHIGHCOL  = TFT.Color565(250,255,250);
+// pipe seam
+const unsigned int PIPESEAMCOL  = TFT.Color565(0,0,0);
+// floor
+const unsigned int FLOORCOL = TFT.Color565(246,240,163);
+// grass (col2 is the stripe color)
+const unsigned int GRASSCOL  = TFT.Color565(141,225,87);
+const unsigned int GRASSCOL2 = TFT.Color565(156,239,88);
+
 // bird sprite
-static unsigned int birdcol[] = { C0, C0, C1, C1, C1, C1, C1, C0,
-                                  C0, C1, C2, C2, C2, C1, C3, C1,
-                                  C0, C2, C2, C2, C2, C1, C3, C1,
-                                  C1, C1, C1, C2, C2, C3, C1, C1,
-                                  C1, C2, C2, C2, C2, C2, C4, C4,
-                                  C1, C2, C2, C2, C1, C5, C4, C0,
-                                  C0, C1, C2, C1, C5, C5, C5, C0,
-                                  C0, C0, C1, C5, C5, C5, C0, C0};
+// bird sprite colors (Cx name for values to keep the array readable)
+#define C0 BCKGRDCOL
+#define C1 TFT.Color565(195,165,75)
+#define C2 BIRDCOL
+#define C3 ST7735_WHITE
+#define C4 ST7735_RED
+#define C5 TFT.Color565(251,216,114)
+static unsigned int birdcol[] =
+{ C0, C0, C1, C1, C1, C1, C1, C0,
+  C0, C1, C2, C2, C2, C1, C3, C1,
+  C0, C2, C2, C2, C2, C1, C3, C1,
+  C1, C1, C1, C2, C2, C3, C1, C1,
+  C1, C2, C2, C2, C2, C2, C4, C4,
+  C1, C2, C2, C2, C1, C5, C4, C0,
+  C0, C1, C2, C1, C5, C5, C5, C0,
+  C0, C0, C1, C5, C5, C5, C0, C0};
+
 // bird structure
 static struct BIRD {
   unsigned char x, y, old_y;
   unsigned int col;
   float vel_y;
 } bird;
-static short tmpx, tmpy;
-
-// pipe constant
-#define PIPEW      12
-// pipe color
-const unsigned int PIPECOL  = TFT.Color565(99,255,78);
-// pipe highlight color
-const unsigned int PIPEHIGHCOL  = TFT.Color565(250,255,250);
-// pipe seam color
-const unsigned int PIPESEAMCOL  = TFT.Color565(0,0,0);
-// pipe gap height
-#define GAPHEIGHT  36
 // pipe structure
 static struct PIPE {
   char x, gap_y;
   unsigned int col;
 } pipe;
 
-// floor constant
-#define FLOORH     20
-// floor color
-const unsigned int FLOORCOL = TFT.Color565(246,240,163);
-// grass constant
-#define GRASSH      4
-// grass color (col2 is the stripe color)
-const unsigned int GRASSCOL  = TFT.Color565(141,225,87);
-const unsigned int GRASSCOL2 = TFT.Color565(156,239,88);
+// score
+static short score;
+// temporary x and y var
+static short tmpx, tmpy;
 
 // ---------------
 // draw pixel
 // ---------------
 // faster drawPixel method by inlining calls and using setAddrWindow and pushColor
 // using macro to force inlining
-#define drawPixel(a, b, c) TFT.setAddrWindow(a, b, a+1, b+1); TFT.pushColor(c)
+#define drawPixel(a, b, c) TFT.setAddrWindow(a, b, a, b); TFT.pushColor(c)
 
 // ---------------
 // initial setup
@@ -249,7 +241,7 @@ void game_loop() {
     // ---------------
     tmpx = BIRDW-1;
     do {
-          px = bird.x + tmpx + BIRDW;
+          px = bird.x+tmpx+BIRDW;
           // clear bird at previous position stored in old_y
           // we can't just erase the pixels before and after current position
           // because of the non-linear bird movement (it would leave 'dirty' pixels)
@@ -377,3 +369,4 @@ void game_over() {
     if ( !(PIND & (1<<PD2)) ) break;
   }
 }
+
