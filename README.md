@@ -16,7 +16,7 @@ Youtube video:
 * Usage of a small sprite to represent the bird
 * Small details on the pipe and animated floor
 
-This is a project for the ATmega328 and ST7735, source will certainly needs some twraking to run on other components.
+This is a project for the ATmega328 and ST7735, source will certainly need some tweaking to run on other components.
 
 ##Screenshot:
 ![In-Game](https://raw.githubusercontent.com/mrt-prodz/ATmega328-Flappy-Bird-Clone/master/screenshot.jpg)
